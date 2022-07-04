@@ -1,0 +1,34 @@
+{% extends 'app/base.html' %} {% block contenido %} {% load static %} {% load humanize %}
+<div class="products">
+    <div class="banner">
+        <a href="{% url 'ropa' %}"><img src="{% static 'app/img/Banner.png' %}" alt="" width="60%"></a>
+    </div>
+    <div class="container">
+<div class="products">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12" id="lista-productos">
+                <div class="filters-content">
+                    <H4>PRODUCTOS</H4>
+                    <div class="row grid">
+                        {% for p in productos %}
+                        <div class="col-lg-4 col-md-4 ">
+                            <div class="down-content">
+                            <div class="product-item">
+                                {% if p.Imagen %}
+                                <img src="{{ p.Imagen.url }}" alt=""></a>
+                                {% endif %}
+                                 <h4>{{ p.nombreProducto | title }}</h4>
+                                 <h6>${{ p.precio | intcomma }}</h6>
+                                 <h9>{{ p.descripcion }}</h9>
+                            </div>
+                            </div>   
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

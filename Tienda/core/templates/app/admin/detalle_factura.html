@@ -1,0 +1,80 @@
+{% extends 'app/admin/base3.html' %} {% block contenido %} {% load static %}
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-white text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h1 class="mb-0">Detalle factura 535</h1>
+            <!--seguimiento-->
+            <div class="container">
+                <article class="card bg-white">
+                    <div class="card-body">
+                        <div class="track">
+                            <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">En bodega</span> </div>
+                            <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text"> Despachado</span> </div>
+                            <div class="step"> <span class="icon"> <i class=""></i> </span> <span class="text"> Entregado </span> </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <!--seguimiento-->
+        </div>
+        <div class="">
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead>
+                    <tr class="text-black">
+                        <th scope="col">ID</th>
+                        <th scope="col">Categoria</th>
+                        <th scope="col">Nombre producto</th>
+                        <th scope="col">precio</th>
+                        <th scope="col">% Desc subscriptor</th>
+                        <th scope="col">%Desc oferta</th>
+                        <th scope="col">precio final</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>425</td>
+                        <td>Perros</td>
+                        <td>Saco Royan Canin 3kg</td>
+                        <td>$8.000</td>
+                        <td>0%</td>
+                        <td>2%</td>
+                        <td>$7.840</td>
+                    </tr>
+                    <tr>
+                        <td>425</td>
+                        <td>Perros</td>
+                        <td>Hueso gris 3kg</td>
+                        <td>$1.260</td>
+                        <td>0%</td>
+                        <td>0%</td>
+                        <td>$1.160</td>
+                    </tr>
+                    <tr>
+                        <td>425</td>
+                        <td>Perros</td>
+                        <td>Pelota de juguete</td>
+                        <td>$8.000</td>
+                        <td>0%</td>
+                        <td>0%</td>
+                        <td>$1.000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <div class="">
+            <div class="col">
+                <table class="table text-start align-right table-bordered table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="visibility: hidden;">nadaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</th>
+                            <th scope="col">Total&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                            <th scope="col">$10.000</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

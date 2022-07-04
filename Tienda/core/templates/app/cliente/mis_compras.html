@@ -1,0 +1,52 @@
+{% extends 'app/cliente/base2.html' %} {% block contenido %} {% load static %}
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-white text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h1 class="mb-0">MIS COMPRAS</h1>
+        </div>
+        <div class="">
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead>
+                    <tr class="text-black">
+                        <th scope="col">Nro factura</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Monto total</th>
+                        <th scope="col">estado actual</th>
+                        <th scope="col">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>425</td>
+                        <td>1/1/2022</td>
+                        <td>$15.000</td>
+                        <td>Entregado</td>
+                        <td><a class="btn btn-sm btn-primary" href="{% url 'detalle' %}">VER DETALLE</a></td>
+                    </tr>
+                    <tr>
+                        <td>535</td>
+                        <td>5/2/2022</td>
+                        <td>$10.000</td>
+                        <td>Despachado</td>
+                        <td><a class="btn btn-sm btn-primary" href="{% url 'detalle' %}">VER DETALLE</a></td>
+                    </tr>
+                    <tr>
+                        <td>675</td>
+                        <td>7/3/2022</td>
+                        <td>$12.000</td>
+                        <td>En bodega</td>
+                        <td><a class="btn btn-sm btn-primary" href="{% url 'detalle' %}">VER DETALLE</a></td>
+                    </tr>
+                    <tr>
+                        <td>734</td>
+                        <td>2/4/2022</td>
+                        <td>$7.000</td>
+                        <td>Entregado</td>
+                        <td><a class="btn btn-sm btn-primary" href="{% url 'detalle' %}">VER DETALLE</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
