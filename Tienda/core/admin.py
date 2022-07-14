@@ -1,6 +1,20 @@
 from django.contrib import admin
+from core.models import Account
+from django.contrib.auth.models import User
+from django.contrib.auth.admin import UserAdmin
 from.models import Categoria, Producto, Usuario, Factura, DetalleFactura, ProductosBodega
 # Register your models here.
+
+class AccountInLine(admin.StackedInline):
+    model = Account
+    ccan_delete = False
+    verbose_name_plural = 'Accounts'
+
+class CustomizedUserAdmin(UserAdmin):
+    inlines = (AccountInLine, )
+
+admin.site.unregister(User)
+admin.site.register(User, CustomizedUserAdmin)
 
 class ProductoAdmin(admin.ModelAdmin):
     list_display = ["nombreProducto", "precio", "descripcion"]
@@ -11,6 +25,7 @@ class ProductoAdmin(admin.ModelAdmin):
 
 class UsuarioAdmin(admin.ModelAdmin):
     list_filter = ["esSubscriptor"]
+
 
 
 admin.site.register(Categoria)

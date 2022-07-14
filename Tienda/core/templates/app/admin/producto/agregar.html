@@ -3,7 +3,7 @@
 
 <div class="container">
     <div class="row borde-bootstrap-row">
-        <h4>NUEVO PRODUCTO</h4>
+        <h4>MANTENEDOR DE PRODUCTOS</h4>
     </div>
     <br>
     <form class="borde-bootstrap-row" action="" method="post"  enctype="multipart/form-data">
@@ -12,8 +12,10 @@
 
                 {% csrf_token %}
 
-               
+                
                 {{ form }}
+
+                
 
 
 
@@ -25,6 +27,53 @@
     
 </div>
 {{ mensaje }}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-white text-center rounded p-4">
+        <div class="">
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Categoria</th>
+                        <th>Nombre</th>
+                        <th>Descripcion</th>
+                        <th>Precio</th>
+                        <th>% Desc Subscriptor</th>
+                        <th>% Desc Oferta</th>
+                        <th> Opciones </th>
+                    </tr>
+
+                    {% for p in productos %}
+
+                    <tr>
+                        <td>{{ p.idProducto }}</td>
+                        <td>{{ p.idcategoria }}</td>
+                        <td>{{ p.nombreProducto }}</td>
+                        <td>{{ p.descripcion }}</td>
+                        <td>${{ p.precio | intcomma }}</td>
+                        <td>%{{ p.porcDesctoSubscritor }}</td>
+                        <td>%{{ p.porcDesctoOferta }}</td>
+
+                        <td>
+                            {% if perms.app.change_producto %}
+                            <a href="{% url 'modificar_producto' p.idProducto %}">Modificar</a>
+                            {% endif %}
+                            {% if perms.app.delete_producto %}
+                            <a href="{% url 'eliminar_producto' p.idProducto %}">Eliminar</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+
+
+                    </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 {% endblock %} {% block js %}

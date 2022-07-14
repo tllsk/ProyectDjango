@@ -19,10 +19,13 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from core.views import UserApi
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('core.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('api/1.0/create_user/', UserApi.as_view(), name = "api_create_user")
 ]
 
 

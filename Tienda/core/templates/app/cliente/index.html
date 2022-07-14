@@ -1,33 +1,39 @@
 {% extends 'app/cliente/base2.html' %} {% block contenido %} {% load static %} {% load humanize %}
-<div class="products">
+
+<div class="animate__animated animate__fadeIn">
     <div class="container">
-        <div class="products">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12" id="lista-productos">
-                        <div class="filters-content">
-                            <H4>PRODUCTOS</H4>
-                            <div class="row grid">
-                                {% for p in productos %}
-                                <div class="col-lg-4 col-md-4 ">
-                                    <div class="down-content">
-                                        <div class="product-item">
-                                            {% if p.Imagen %}
-                                            <img src="{{ p.Imagen.url }}" alt=""></a>
-                                            {% endif %}
-                                            <h4>{{ p.nombreProducto | title }}</h4>
-                                            <h6>${{ p.precio | intcomma }}</h6>
-                                            <h9>{{ p.descripcion }}</h9>
-                                        </div>
-                                    </div>
-                                </div>
-                                {% endfor %}
+        <div class="row">
+            <div class="col-md-12" id="lista-productos">
+                <div class="filters-content">
+                    <H4>PRODUCTOS</H4>
+                    <div class="row grid">
+                        {% for p in productos %}
+                        {% if p.stock > 0 %}
+                        <div class="col-lg-4 col-md-4 ">
+                            <div class="down-content">
+                            <div class="product-item">
+                                {% if p.Imagen %}
+                                <a href="{% url 'mostrar_producto' p.idProducto %} "><img src="{{ p.Imagen.url }}" alt=""></a>
+                                {% else %}
+                                <img src="{% static 'app/img/placeholder.png' %}" alt=""></a>
+                                {% endif %}
+                                <a href="{% url 'mostrar_producto' p.idProducto %} "><h4>{{ p.nombreProducto | title }}</h4> </a>
+                                 <h6>${{ p.precio | intcomma }}</h6>
+                                 <h9>{{ p.descripcion }}</h9> <hr>
+                                 
+                                 <a href="{% url 'Add2' p.idProducto %}" class="btn btn-sm btn-primary ">Agregar al carrito</a>
+                                 {{mensaje}}
+                        {% endif %}        
                             </div>
+                            </div>   
                         </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
 
-        {% endblock %}
+{% endblock %}

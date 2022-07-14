@@ -1,19 +1,43 @@
 {% extends 'app/admin/base3.html' %} {% block contenido %} {% load static %} {% load humanize %}
 
+
+<div class="container">
+    <div class="row borde-bootstrap-row">
+        <h4>MANTENEDOR DE BODEGA</h4>
+    </div>
+    <br>
+    <form class="borde-bootstrap-row" action="" method="post"  enctype="multipart/form-data">
+        <div class="row borde-bootstrap-row">
+            <div class="col-sm-2">
+
+                {% csrf_token %}
+
+               
+                {{ form }}
+
+
+
+
+            <button type="submit" class="btn btn-primary">Guardar</button> &nbsp;&nbsp;&nbsp;
+            <button type="reset" class="btn btn-secondary">Cancelar</button>
+        </div>
+    </form>
+    
+</div>
+{{ mensaje }}
+
 <div class="container-fluid pt-4 px-4">
     <div class="bg-white text-center rounded p-4">
         <div class="">
             <table class="table text-start align-middle table-bordered table-hover mb-0">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Categoria</th>
-                        <th>Nombre</th>
-                        <th>Descripcion</th>
-                        <th>Precio</th>
-                        <th>% Desc Subscriptor</th>
-                        <th>% Desc Oferta</th>
+                        <th> ID </th>
+                        <th> Categoria </th>
+                        <th> Nombre </th>
+                        <th> Estado </th>
                         <th> Opciones </th>
+                        
                     </tr>
 
                     {% for p in productos %}
@@ -22,14 +46,16 @@
                         <td>{{ p.idProducto }}</td>
                         <td>{{ p.idcategoria }}</td>
                         <td>{{ p.nombreProducto }}</td>
-                        <td>{{ p.descripcion }}</td>
-                        <td>{{ p.precio }}</td>
-                        <td>{{ p.porcDesctoSubscritor }}</td>
-                        <td>{{ p.porcDesctoOferta }}</td>
-
+                        <td>
+                            {%  if p.stock > 0 %}
+                            <h7>En bodega</h7>
+                            {%  else %}
+                            <h7>Sin stock</h7>
+                            {% endif %}
+                        </td>
                         <td>
                             {% if perms.app.change_producto %}
-                            <a href="{% url 'modificar_producto' p.idProducto %}">Modificar</a>
+                            <a href="{% url 'modificar_producto' p.idProducto %}">Modificar</a> |
                             {% endif %}
                             {% if perms.app.delete_producto %}
                             <a href="{% url 'eliminar_producto' p.idProducto %}">Eliminar</a>

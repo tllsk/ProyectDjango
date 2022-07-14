@@ -1,7 +1,11 @@
 from ast import Delete
+from distutils.command.upload import upload
+from logging import PlaceHolder
+from multiprocessing.sharedctypes import Value
 from pyexpat import model
 from ssl import PROTOCOL_TLS_CLIENT
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 # Create Modelo para Categoria
@@ -14,33 +18,40 @@ class Categoria(models.Model):
         return self.nombreCategoria
 
 class Producto(models.Model):
-    idProducto = models.IntegerField(primary_key=True)
-    idcategoria = models.ForeignKey(Categoria, on_delete=models.PROTECT)
-    nombreProducto = models.CharField(max_length=80)
-    descripcion = models.TextField(max_length=300)
-    precio = models.IntegerField()
-    porcDesctoSubscritor = models.IntegerField()
-    porcDesctoOferta = models.IntegerField()
-    UrlImagenProducto = models.CharField(max_length=300)
+    idProducto = models.IntegerField(primary_key=True, verbose_name='ID')
+    idcategoria = models.ForeignKey(Categoria, on_delete=models.PROTECT, verbose_name='Categoría')
+    nombreProducto = models.CharField(max_length=80, verbose_name='Nombre')
+    descripcion = models.TextField(default="INGRESAR DESCRIPCION", max_length=300)
+    precio = models.IntegerField(default=0)
+    porcDesctoSubscritor = models.IntegerField(default=0, verbose_name='Descuento subscriptor')
+    porcDesctoOferta = models.IntegerField(default=0, verbose_name='Descuento por oferta')
+    stock = models.IntegerField(default=0, verbose_name='Cantidad')
     Imagen = models.ImageField(upload_to="productos", null=True)
 
 
     def __str__(self):
         return self.nombreProducto
+    
+    
+
 
 class Usuario(models.Model):
     idUsuario = models.IntegerField(primary_key=True)
-    TipoUsuario = models.CharField(max_length=1)
-    Rut = models.IntegerField() 
-    Nombres = models.CharField(max_length=100)
-    Apellidos = models.CharField(max_length=100)
-    Direccion = models.CharField(max_length=300)
-    EsSubscriptor = models.BooleanField()
-    Contrasena = models.CharField(max_length=50)
-    UrlImagenUsuario = models.CharField(max_length=300)
+    first_name = models.CharField(max_length=100)
+    username = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    email = models.CharField(max_length=300)
+    Password = models.CharField(max_length=50)
+    EsSubscriptor = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.Nombres
+        return self.first_name
+
+class Account(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    subscriptor = models.BooleanField(default=False)
+    def __str__(self):
+        return self.user.username
     
     
 class Factura(models.Model):

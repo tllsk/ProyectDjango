@@ -1,72 +1,55 @@
 {% extends 'app/cliente/base2.html' %} {% block contenido %} {% load static %} {% load humanize %}
-<div class="container">
-    <h4>CARRITO DE COMPRAS</h4>
-    <div class="bg-white text-center rounded p-4">
-        <table class="table text-start align-middle table-bordered table-hover mb-0">
-            <thead>
-                <tr class="text-black">
-                    <th scope="col"></th>
-                    <th scope="col">Categoria</th>
-                    <th scope="col">Nombre producto</th>
-                    <th scope="col">precio</th>
-                    <th scope="col">% Desc subscriptor</th>
-                    <th scope="col">%Desc oferta</th>
-                    <th scope="col">precio final</th>
-                    <th scope="col">Opciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td></td>
-                    <td>Perros</td>
-                    <td>Saco Royan Canin 3kg</td>
-                    <td>$8.000</td>
-                    <td>0%</td>
-                    <td>2%</td>
-                    <td>$7.840</td>
-                    <td><a href="#">Eliminar</a></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Perros</td>
-                    <td>Hueso gris 3kg</td>
-                    <td>$1.260</td>
-                    <td>0%</td>
-                    <td>0%</td>
-                    <td>$1.160</td>
-                    <td><a href="#">Eliminar</a></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Perros</td>
-                    <td>Pelota de juguete</td>
-                    <td>$8.000</td>
-                    <td>0%</td>
-                    <td>0%</td>
-                    <td>$1.000</td>
-                    <td><a href="#">Eliminar</a></td>
-                </tr>
-            </tbody>
-        </table>
+<div class="alert alert-primary" role="alert">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="row" colspan="3" class="text-center">CARRITO</th>
+        </tr>
+        <tr>
+          <th scope="col">NOMBRE</th>
+          <th scope="col">PRECIO</th>
+          <th scope="col">CANTIDAD</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+      {% if request.session.carrito.items %}
+      {% for key, value in request.session.carrito.items %}
+
+        <tr>
+          <td>{{value.nombre}}</td>
+          <td>{{value.acumulado|intcomma}}</td>
+          <td>{{value.cantidad}} </td>
+
+          <td>
+            <a href="{% url 'Add' value.producto_id %}" class="badge btn btn-primary badge-dark">+</a>
+            <a href="{% url 'Sub' value.producto_id %}" class="badge btn btn-secondary badge-dark">-</a>
+          </td>
+        </tr>
+      {% endfor %}
+      {% else %}
+      <tr>
+          <td colspan="3">
+              <div class="alert alert-danger text-center"> Sin Productos </div>
+          </td>
+      </tr>
+      {% endif %}
+        <tr>
+          <th scope="row">Descuento</th>
+          <td colspan="2">%0 {{ porcDesctoOferta }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Total:</th>
+            <td colspan="2">$ {{total_carrito|intcomma}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <hr>
     </div>
-    <br>
-    <div class="bg-white text-center rounded p-4">
-        <div class="col">
-            <table class="table text-start align-right table-bordered table-hover mb-0">
-                <thead>
-                    <tr>
-                        <th scope="col" style="visibility: hidden;">nadaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</th>
-                        <th scope="col">Total&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                        <th scope="col">$10.000</th>
-                    </tr>
-                </thead>
-            </table>
-        </div>
-    </div>
-    <div style="float: right;">
-        <a href="#" class="btn btn-primary">Pagar</a>
-    </div>
-</div>
+    <div class="row text-center">
+        <div class="col-6"><a href="{% url 'CLS' %}" class="btn btn-danger">Limpiar</a></div>
+        <div class="col-6"><a href="#" class="btn btn-success">Pagar</a></div>
+    </div>    
 {% endblock %}
 
 

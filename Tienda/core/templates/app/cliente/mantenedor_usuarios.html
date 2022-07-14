@@ -4,59 +4,13 @@
         <h4>MANTENEDOR DE USUARIOS</h4>
     </div>
     <br>
-    <form class="borde-bootstrap-row" action="mantenerU.php" method="post" name="mantenerU" id="mantenerU">
+    <form class="borde-bootstrap-row col-md-6" action="" method="post" >
         <div class="row borde-bootstrap-row">
-            <div class="col-sm-6">
-                <div class="form-group">
-                    <label for="id">ID</label>
-                    <input class="form-control" type="text" name="id" id="id">
-                </div>
-                <div class="form-group">
-                    <label>Tipo de usuario</label>
-                    <input type="radio" name="tipoUsuario" value="Cliente">Cliente
-                    <input type="radio" name="tipoUsuario" value="Administrador">Administrador
-                </div>
-                <div class="form-group">
-                    <label for="rut">Rut</label>
-                    <input class="form-control" type="text" name="rut" id="rut">
-                </div>
-                <div class="form-group">
-                    <label for="nombres">Nombres</label>
-                    <input class="form-control" type="text" name="nombres" id="nombres">
-                </div>
-                <div class="form-group">
-                    <label for="apellidos">Apellidos</label>
-                    <input class="form-control" type="text" name="apellidos" id="apellidos">
-                </div>
-                <div class="form-group">
-                    <label>Dirección</label>
-                    <textarea class="form-control" name="direccion" id="direccion" cols="50" rows="3"></textarea>
-                </div>
-                <div class="form-group">
-                    <label class="form-check-label" for="consubscripcion">Con subscripción</label>
-                    <input input type="checkbox" class="form-check-input" id="consubscripcion" name="consubscripcion" style="margin-top: 5px;">
-                    <small style="position: absolute;
-                        margin-right: 62%;
-                        margin-top: 5px;
-                        ">
-                            Deseo subscribirme con un aporte de $3.000 mensuales
-                            y obtener un 5% de descuento en mis compras.
-                        </small>
-                </div>
-                <div class="form-group" id="rngPass">
-                    <label for="password" style="margin-top: 45px;">Contraseña</label>
+            {% csrf_token %}
+ 
+                
+                {{ form }}
 
-                </div>
-            </div>
-
-            <div class="col-sm-3">
-                <div class="form-group">
-                    <img src="{% static 'app/img/user_img.png' %}" width="75%" alt="" name="fotoperfil" id="fotoperfil">
-                    <br><br>
-                    <input class="form-control-file" type="file" name="buscarfoto" id="buscarfoto">
-                </div>
-            </div>
-        </div>
         <div class="row borde-bootstrap-row">
             <button type="submit" class="btn btn-primary">Guardar</button> &nbsp;&nbsp;&nbsp;
             <button type="reset" class="btn btn-tertiary">Nuevo</button> &nbsp;&nbsp;&nbsp;
@@ -69,55 +23,27 @@
                 <table class="table text-start align-middle table-bordered table-hover mb-0">
                     <thead>
                         <tr class="text-black">
-                            <th scope="col">&nbsp;&nbsp;</th>
                             <th scope="col">ID</th>
-                            <th scope="col">Tipo Usuario</th>
-                            <th scope="col">RUT</th>
+                            <th scope="col">Estado</th>
                             <th scope="col">Nombres</th>
                             <th scope="col">Apellidos</th>
                             <th scope="col">Dirección</th>
-                            <th scope="col">Con Subscripción</th>
-                            <th scope="col">Imagen</th>
-                            <th scope="col"></th>
+                            <th scope="col">Ultima Conexion</th>
                         </tr>
                     </thead>
                     <tbody>
+                        {% for u in user %}
                         <tr>
-                            <td></td>
-                            <td>34</td>
-                            <td>Registrado</td>
-                            <td>9.455.847-k</td>
-                            <td>Juan</td>
-                            <td>Pérez</td>
-                            <td>San Juan Bautista 423</td>
-                            <td>Sí</td>
-                            <td></td>
-                            <td></td>
+                            <td>{{ u.id }}</td>
+                            {% if request.user.is_staff %}
+                            <td> Registrado </td>
+                            {% endif %}
+                            <td>{{ u.first_name }}</td>
+                            <td>{{ u.last_name }}</td>
+                            <td>{{ u.email }}</td>
+                            <td>{{ u.last_login|date:"d M" }}</td>
                         </tr>
-                        <tr>
-                            <td>></td>
-                            <td>35</td>
-                            <td>Administrador</td>
-                            <td>13.345.678-2</td>
-                            <td>Ana</td>
-                            <td>Torres</td>
-                            <td>San Juan Bautista 423</td>
-                            <td>No</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>36</td>
-                            <td>Registrado</td>
-                            <td>26.846.927-k</td>
-                            <td>Pedro</td>
-                            <td>González</td>
-                            <td>San Juan Bautista 423</td>
-                            <td>No</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
@@ -131,3 +57,4 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="{% static 'app/js/validacion-formulario.js' %}"></script>
 {% endblock %}
+
